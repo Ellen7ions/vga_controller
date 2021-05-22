@@ -1,12 +1,12 @@
-### VGA Controller
+## VGA Controller
 
 > That's one small step for man, one giant leap for mankind.
 
 This is a simple VGA controller.
 
-You can download the bit file into FPGA Artix-7 (xc7a200tfbg676-2) with a VGA screen.
+You can download the bit file to FPGA Artix-7 (xc7a200tfbg676-2) with a VGA screen.
 
-### Reference
+## Reference
 
 [1] [VGA Signal Timing](http://tinyvga.com/vga-timing)
 
