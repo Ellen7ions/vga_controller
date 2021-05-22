@@ -1,0 +1,6 @@
+/vivado
+
+/bits/*
+!/bits/impl_1
+/bits/impl_1/*
+!/bits/impl_1/vga_display.bit
