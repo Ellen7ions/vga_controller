@@ -4,3 +4,8 @@
 !/bits/impl_1
 /bits/impl_1/*
 !/bits/impl_1/vga_display.bit
+
+/ip/*
+!/ip/clk_pll
+/ip/clk_pll/*
+!/ip/clk_pll/clk_pll.xci

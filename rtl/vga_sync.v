@@ -48,28 +48,22 @@ module vga_sync(
     localparam V_SYNC_END       = V_DISPLAY + V_BACK_PORCH + V_SYNC_PULSE - 1;
     localparam V_WHOLE_LINE     = V_DISPLAY + V_FRONT_PORCH + V_SYNC_PULSE + V_BACK_PORCH - 1;
 
-        // pll 25MHz
-    wire        clk_25MHz;
-    reg  [1:0]  clk_count;
-    wire [1:0]  clk_count_next;
+    // pll 25MHz
+    wire clk_25MHz;
 
-    always @(posedge clk) begin
-        if (rst) begin
-            clk_count <= 1'b0;
-        end else begin
-            clk_count <= clk_count_next;
-        end
-    end
-
-    assign clk_count_next = clk_count + 1;
-
-    assign clk_25MHz = (clk_count == 2'b00);
+    clk_pll pll(
+        // Clock out ports
+        .clk_out1(clk_25MHz),     // output clk_out1
+        .reset(rst),
+        // Clock in ports
+        .clk_in1(clk)
+    );
 
     reg     [9:0]   h_count, v_count;
     wire    [9:0]   h_count_next, v_count_next;
     wire            hsync_next, vsync_next;
 
-    always @(posedge clk) begin
+    always @(posedge clk_25MHz) begin
         if (rst) begin
             h_count <= 10'h000;
             v_count <= 10'h000;
@@ -83,8 +77,8 @@ module vga_sync(
         end
     end
 
-    assign h_count_next = (clk_25MHz) ? (h_count == H_WHOLE_LINE) ? 10'h000 : h_count + 10'h1 : h_count;
-    assign v_count_next = (clk_25MHz && h_count == H_WHOLE_LINE) ? (v_count == V_WHOLE_LINE) ? 10'h000 : v_count + 10'h1 : v_count;
+    assign h_count_next = (h_count == H_WHOLE_LINE) ? 10'h000 : h_count + 10'h1;
+    assign v_count_next = (h_count == H_WHOLE_LINE) ? (v_count == V_WHOLE_LINE) ? 10'h000 : v_count + 10'h1 : v_count;
 
     // low active
     assign hsync_next   = (h_count >= H_SYNC_START) && (h_count <= H_SYNC_END);
