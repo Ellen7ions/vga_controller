@@ -27,7 +27,8 @@ module vga_sync(
     output  reg         vsync,
     output  wire        displaying,
     output  wire [9:0]  x,
-    output  wire [9:0]  y
+    output  wire [9:0]  y,
+    output  wire        pixel_clk
     );
 
     // Horizontal Timing (line)
@@ -87,5 +88,6 @@ module vga_sync(
     assign x            = h_count;
     assign y            = v_count;
     assign displaying   = (h_count < H_DISPLAY) && (v_count < V_DISPLAY);
+    assign pixel_clk    = clk_25MHz;
 
 endmodule
