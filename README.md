@@ -6,6 +6,12 @@ This is a simple VGA controller.
 
 You can download the bit file to FPGA Artix-7 (xc7a200tfbg676-2) with a VGA screen.
 
+## Bugs
+
+I originally planned to display a picture with a 24 bit color depth, but on the Artix-7 development board, the VGA interface has only a 12 bit color depth, so I only took the high 4 bits of the RGB channel, which caused the color of the displayed image to be distorted. If you find the solution, pls tell me ~
+
+
+
 ## Reference
 
 [1] [VGA Signal Timing](http://tinyvga.com/vga-timing)
